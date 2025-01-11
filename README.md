@@ -30,7 +30,7 @@ You will need:
 * (_Optional_) [ngrok](https://ngrok.com/) to let Twilio access a local server.
 
 You will also need to set up a TwiML Bin like the following in your Twilio Console:
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
     <Say language="en">"This call may be monitored or recorded."</Say>
@@ -47,12 +47,19 @@ executed whenever someone calls that number.
 ## Running the Server
 
 Install requirements:
+
 ```
 pip install -r requirements.txt
 ```
 
 If your TwiML Bin is setup correctly, you should be able to just run the server with:
+
 ```
+pip install -r requirements.txt
+```
+
+If your TwiML Bin is setup correctly, you should be able to just run the server with:
+```bash
 python server.py
 ```
 and then start making calls to the phone number the TwiML Bin is attached to!
@@ -60,7 +67,7 @@ and then start making calls to the phone number the TwiML Bin is attached to!
 ## Code Tour
 
 Let's dive into the code. First we have some import statements:
-```
+```python
 import asyncio
 import base64
 import json
@@ -73,7 +80,7 @@ messages coming from and going to Twilio, which `base64` encodes its audio, we w
 text messages from and to Twilio and the Deepgram STS API, etc.
 
 The next block of code is:
-```
+```python
 def sts_connect():
     extra_headers = {"Authorization": "Token INSERT_DEEPGRAM_API_KEY"}
     sts_ws = websockets.connect(
@@ -89,7 +96,7 @@ the Deepgram STS API does all of it's configuration via structured json websocke
 as the number of parameters to tune the API can be quite large.
 
 The next block of code is:
-```
+```python
 async def twilio_handler(twilio_ws):
     audio_queue = asyncio.Queue()
     streamsid_queue = asyncio.Queue()
@@ -105,7 +112,7 @@ sid (a unique identifier of the Twilio stream) from Twilio.
 Finally, we open up a connection to the Deepgram STS API.
 
 The next code block is:
-```
+```python
         config_message = {
             "type": "SettingsConfiguration",
             "audio": {
@@ -140,7 +147,7 @@ The most important thing to note here is the audio format we are using - 8000 Hz
 is the format Twilio will be sending, and the format we will need to send back to Twilio (plus some base64 encoding/decoing).
 
 The next code block is:
-```
+```python
         async def sts_sender(sts_ws):
             print("sts_sender started")
             while True:
@@ -150,7 +157,7 @@ The next code block is:
 This `sts_sender` simply waits for audio from Twilio (via the audio queue) and forwards it to the Deepgram STS API. Simple!
 
 The next code block is:
-```
+```python
         async def sts_receiver(sts_ws):
             print("sts_receiver started")
             # we will wait until the twilio ws connection figures out the streamsid
@@ -196,7 +203,7 @@ about streaming audio to Twilio, see the following:
 https://www.twilio.com/docs/voice/twiml/stream#websocket-messages---to-twilio
 
 The next code block is:
-```
+```python
         async def twilio_receiver(twilio_ws):
             print("twilio_receiver started")
             # twilio sends audio data as 160 byte messages containing 20ms of audio each
@@ -237,7 +244,7 @@ forwards it to Deepgram when it's of a reasonable size (there can be throughput 
 of tiny chunks, so that's why we are doing this buffering approach).
 
 The next code block is:
-```
+```python
         # the async for loop will end if the ws connection from twilio dies
         # and if this happens, we should forward an some kind of message to sts
         # to signal sts to send back remaining messages before closing(?)
@@ -256,7 +263,7 @@ The next code block is:
 This just runs the above asynchronous tasks, nothing special.
 
 And finally the last code block is:
-```
+```python
 async def router(websocket, path):
     if path == "/twilio":
         print("twilio connection incoming")
