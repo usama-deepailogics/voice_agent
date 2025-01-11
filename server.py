@@ -7,11 +7,11 @@ import ssl
 
 
 def sts_connect():
-    extra_headers = {"Authorization": "Token INSERT_DEEPGRAM_API_KEY"}
+    extra_headers = {"Sec-WebSocket-Protocol": "Token YOUR_DEEPGRAM_API_KEY"}
     sts_ws = websockets.connect(
-        "wss://sts.sandbox.deepgram.com/agent", extra_headers=extra_headers
+        "wss://agent.deepgram.com/agent",
+        extra_headers=extra_headers
     )
-
     return sts_ws
 
 
@@ -37,9 +37,9 @@ async def twilio_handler(twilio_ws):
                 "listen": {"model": "nova-2"},
                 "think": {
                     "provider": {
-                        "type": "anthropic",  # examples are anthropic, open_ai, groq, ollama
+                        "type": "anthropic",
                     },
-                    "model": "claude-3-haiku-20240307",  # examples are claude-3-haiku-20240307, gpt-3.5-turbo, mixtral-8x7b-32768, mistral
+                    "model": "claude-3-haiku-20240307",
                     "instructions": "You are a helpful car seller.",
                 },
                 "speak": {"model": "aura-asteria-en"},
@@ -136,23 +136,28 @@ async def twilio_handler(twilio_ws):
 
 
 async def router(websocket, path):
+    print(f"Incoming connection on path: {path}")
     if path == "/twilio":
-        print("twilio connection incoming")
+        print("Starting Twilio handler")
         await twilio_handler(websocket)
 
-
 def main():
+    # Create and set the event loop
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
     # use this if using ssl
     # ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     # ssl_context.load_cert_chain('cert.pem', 'key.pem')
     # server = websockets.serve(router, '0.0.0.0', 443, ssl=ssl_context)
 
-    # use this if not using ssl
-    server = websockets.serve(router, "localhost", 5000)
+    async def start_server():
+        server = await websockets.serve(router, "localhost", 5000)
+        print("Server started on ws://localhost:5000")
 
-    asyncio.get_event_loop().run_until_complete(server)
-    asyncio.get_event_loop().run_forever()
-
+    # Use our created event loop
+    loop.run_until_complete(start_server())
+    loop.run_forever()
 
 if __name__ == "__main__":
     sys.exit(main() or 0)
