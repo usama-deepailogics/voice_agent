@@ -7,10 +7,8 @@ import ssl
 
 
 def sts_connect():
-    extra_headers = {"Sec-WebSocket-Protocol": "token, YOUR_DEEPGRAM_API_KEY"}
     sts_ws = websockets.connect(
-        "wss://agent.deepgram.com/agent",
-        extra_headers=extra_headers
+    "wss://agent.deepgram.com/agent", subprotocols=["token", "YOUR_DEEPGRAM_API_KEY"]
     )
     return sts_ws
 
