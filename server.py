@@ -7,7 +7,7 @@ import ssl
 
 
 def sts_connect():
-    extra_headers = {"Sec-WebSocket-Protocol": "Token YOUR_DEEPGRAM_API_KEY"}
+    extra_headers = {"Sec-WebSocket-Protocol": "token, YOUR_DEEPGRAM_API_KEY"}
     sts_ws = websockets.connect(
         "wss://agent.deepgram.com/agent",
         extra_headers=extra_headers
@@ -142,22 +142,18 @@ async def router(websocket, path):
         await twilio_handler(websocket)
 
 def main():
-    # Create and set the event loop
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-
     # use this if using ssl
     # ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     # ssl_context.load_cert_chain('cert.pem', 'key.pem')
     # server = websockets.serve(router, '0.0.0.0', 443, ssl=ssl_context)
 
-    async def start_server():
-        server = await websockets.serve(router, "localhost", 5000)
-        print("Server started on ws://localhost:5000")
+    # use this if not using ssl
+    server = websockets.serve(router, "localhost", 5000)
+    print("Server starting on ws://localhost:5000")
 
-    # Use our created event loop
-    loop.run_until_complete(start_server())
-    loop.run_forever()
+    asyncio.get_event_loop().run_until_complete(server)
+    asyncio.get_event_loop().run_forever()
+
 
 if __name__ == "__main__":
     sys.exit(main() or 0)
