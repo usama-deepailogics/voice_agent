@@ -1,50 +1,85 @@
-# sts-twilio
+# HR Virtual Assistant
 
-sts-twilio is a server which enables calls made to your Twilio phone number to pass through to Deepgram's [Voice Agent API](https://developers.deepgram.com/docs/voice-agent), enabling the caller to talk to a voice agent/bot.
+An AI-powered HR virtual assistant that conducts initial screening interviews with job candidates using Twilio for voice calls and Trieve for resume data management.
 
-See the following [Guide in our Documentation](https://developers.deepgram.com/docs/twilio-and-deepgram-voice-agent) for more information.
+## Features
 
-## Pre-requisites
+- Automated candidate screening calls
+- Integration with Trieve.ai for resume data
+- Local database storage using TinyDB
+- Natural conversation flow
+- Professional HR interview process
 
-You will need:
-* A [Twilio account](https://www.twilio.com/try-twilio) with an active Twilio number (the free tier will work).
-* A Deepgram API Key - [get an API Key here](https://console.deepgram.com/signup?jump=keys).
-* (_Optional_) [ngrok](https://ngrok.com/) to let Twilio access a local server.
-* A valid `TwiML Bin` Configuration in your [Twilio Console](https://www.twilio.com/docs/serverless/twiml-bins) like the following:
+## Setup
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-    <Say language="en">"This call may be monitored or recorded."</Say>
-    <Connect>
-        <Stream url="wss://a127-75-172-116-97.ngrok-free.app/twilio" />
-    </Connect>
-</Response>
-```
-You should replace the url with wherever you decide to deploy sts-twilio. In the [Guide in our Documentation](https://developers.deepgram.com/docs/twilio-and-deepgram-voice-agent) we use ngrok to expose the server running locally and this is the recommended way for quick development.
-
-This `TwiML Bin` must also be [connected to one of your Twilio phone numbers](https://www.twilio.com/docs/serverless/twiml-bins/getting-started#wire-your-twiml-bin-up-to-an-incoming-phone-call) so that it gets executed whenever someone calls that number.
-
-## Running the Server
-
-Install requirements:
-
-```
-pip install -r requirements.txt
-```
-
-If your TwiML Bin is setup correctly, you should be able to just run the server with:
-
-```
-pip install -r requirements.txt
-```
-
-If your TwiML Bin is setup correctly, you should be able to just run the server with:
+1. Install dependencies:
 ```bash
-python server.py
+pip install -r requirements.txt
 ```
-and then start making calls to the phone number the TwiML Bin is attached to!
 
-## Code Tour
+2. Create a `.env` file with the following variables:
+```
+TWILIO_ACCOUNT_SID=your_twilio_account_sid
+TWILIO_AUTH_TOKEN=your_twilio_auth_token
+TRIEVE_API_KEY=your_trieve_api_key
+```
 
-For a guided tour of the code, see the following [Guide in our Documentation](https://developers.deepgram.com/docs/twilio-and-deepgram-voice-agent).
+3. Set up ngrok for WebSocket connection:
+```bash
+ngrok http 5000
+```
+
+4. Update the WebSocket URL in `hr_assistant.py` with your ngrok URL.
+
+## Usage
+
+1. Start the server:
+```bash
+python hr_assistant.py
+```
+
+2. Make a call to a candidate:
+```python
+call = make_outbound_call(
+    to_number="+1234567890",
+    from_number="+0987654321",
+    candidate_name="John Doe",
+    position="Software Engineer"
+)
+```
+
+## Interview Flow
+
+1. Initial Verification
+   - Confirms candidate identity
+   - Verifies interest in position
+   - Confirms good time to talk
+
+2. Skills Assessment
+   - Checks Trieve database for candidate info
+   - Collects skills and experience if not found
+   - Stores information in TinyDB
+
+3. Experience Verification
+   - Verifies work experience
+   - Documents technical skills
+   - Records years of experience
+
+4. Professional Closing
+   - Thanks candidate
+   - Explains next steps
+   - Ends call professionally
+
+## Database Structure
+
+The TinyDB database (`hr_database.json`) stores:
+- Candidate information
+- Skills and experience
+- Interview notes
+- Call outcomes
+
+## API Integration
+
+- Twilio: Handles voice calls
+- Trieve.ai: Manages resume data
+- TinyDB: Local data storage
