@@ -221,7 +221,7 @@ def sts_connect():
 # Update the PROMPT_TEMPLATE with current date/time and resume data
 current_date = datetime.now().strftime("%Y-%m-%d")
 current_time = datetime.now().strftime("%H:%M:%S")
-candidate_name = "Catrina Janssen"
+candidate_name = "Benjamin shah"
 
 PROMPT_TEMPLATE = """You are Alex, a friendly and professional HR virtual assistant conducting initial screening interviews. Your role is to gather candidate information and assess their qualifications.
 
@@ -237,7 +237,7 @@ Personality and Tone:
 - Clear and concise in communication
 - Focus on key information only
 
-Interview Flow:
+### Conversational flow:
 1. Introduction (30 seconds):
    - Brief greeting and introduction
    - Mention you have their resume
@@ -252,22 +252,21 @@ Interview Flow:
    - Thank the candidate
    - Use end_call function with both candidate name and position
 
-Important Guidelines:
+## Important Guidelines:
 - Keep responses brief and focused
 - Ask only essential questions
 - Use store_skills_experience after each response
 - End the call after getting all required information
 
-Function Usage:
+## Function Usage:
 - Use store_skills_experience to save:
   * Skills assessment
   * Notice period
   * Salary expectations
 - Use end_call when all information is gathered
 
-Remember:
+## Remember:
 - if there is anything in the resume wrapped for example: "**Candidate Name:** or **skills** then dont say star star candidate name star star or star star skills star star.
-- Keep the conversation under 3 minutes
 - Focus on key information only
 - Be direct and efficient"""
 
@@ -387,15 +386,7 @@ FUNCTION_MAP = {
     "store_skills_experience": store_skills_experience,
     "end_call": end_call,
 }
-
-async def twilio_handler(twilio_ws):
-    logger.info("Starting Twilio handler")
-    audio_queue = asyncio.Queue()
-    streamsid_queue = asyncio.Queue()
-
-    async with sts_connect() as sts_ws:
-        logger.info("Connected to STS service")
-        config_message = {
+config_message = {
             "type": "SettingsConfiguration",
             "audio": {
                 "input": {
@@ -414,13 +405,21 @@ async def twilio_handler(twilio_ws):
                     "provider": {
                         "type": "open_ai",
                     },
-                    "model": "gpt-4o-mini",
+                    "model": "gpt-4.1-mini",
                     "instructions": PROMPT_TEMPLATE,
                     "functions": FUNCTION_DEFINITIONS,
                 },
                 "speak": {"model": "aura-asteria-en"},
             },
         }
+async def twilio_handler(twilio_ws):
+    logger.info("Starting Twilio handler")
+    audio_queue = asyncio.Queue()
+    streamsid_queue = asyncio.Queue()
+
+    async with sts_connect() as sts_ws:
+        logger.info("Connected to STS service")
+
 
         await sts_ws.send(json.dumps(config_message))
         logger.info("Sent configuration message to STS")
@@ -608,12 +607,12 @@ async def router(websocket, path):
 def make_outbound_call(to_number, from_number):
     logger.info(f"Making outbound call to {to_number} from {from_number}")
     twiml = '''<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-    <Say language="en">"This call may be monitored or recorded."</Say>
-    <Connect>
-        <Stream url="wss://d024-101-53-238-243.ngrok-free.app/twilio" />
-    </Connect>
-</Response>'''
+    <Response>
+        <Say language="en">"This call may be monitored or recorded."</Say>
+        <Connect>
+            <Stream url="wss://d024-101-53-238-243.ngrok-free.app/twilio" />
+        </Connect>
+    </Response>'''
     
     try:
         call = client.calls.create(
@@ -661,7 +660,7 @@ def extract_candidate_info(candidate_name):
     """
 
     response = AI_client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-4.1-mini",
         messages=[{"role": "user", "content": prompt}],
     )
     choices = response.choices[0].message.content
@@ -688,7 +687,7 @@ def main():
         )
         print(formatted_prompt)
         
-        # Update the global PROMPT_TEMPLATE
+        # # Update the global PROMPT_TEMPLATE
         PROMPT_TEMPLATE = formatted_prompt
         
         # Make an outbound call

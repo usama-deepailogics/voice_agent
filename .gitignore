@@ -4,3 +4,6 @@ example
 hr_assistant.py
 test.py
 testing1.py
+__pycache__/
+testing1.py
+utils\storage_text_extraction.py

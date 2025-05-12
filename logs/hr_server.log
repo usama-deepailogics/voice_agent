@@ -21651,3 +21651,364 @@
 2025-05-06 12:53:36,804 - hr_server - DEBUG - Added chunk to buffer
 2025-05-06 12:53:37,927 - hr_server - DEBUG - Processed remaining buffer
 2025-05-06 12:53:37,945 - hr_server - INFO - Closing Twilio WebSocket connection
+2025-05-08 12:24:34,560 - hr_server - INFO - Environment variables loaded
+2025-05-08 12:24:34,617 - hr_server - INFO - Twilio client initialized
+2025-05-08 12:24:34,619 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 12:24:34,619 - hr_server - INFO - TinyDB initialized
+2025-05-08 12:24:34,621 - hr_server - INFO - Starting HR Server application
+2025-05-08 12:24:34,621 - hr_server - INFO - Checking Trieve database for candidate: Catrina Janssen
+2025-05-08 12:24:38,252 - hr_server - ERROR - Error in main: Expecting value: line 1 column 1 (char 0)
+2025-05-08 12:24:38,264 - hr_server - DEBUG - Full traceback: Traceback (most recent call last):
+  File "D:\DeepAI Logics\sts-twilio\server.py", line 678, in main
+    candidate_info = extract_candidate_info(candidate_name)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DeepAI Logics\sts-twilio\server.py", line 668, in extract_candidate_info
+    return json.loads(choices)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayyub\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayyub\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayyub\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+2025-05-08 12:25:00,189 - hr_server - INFO - Environment variables loaded
+2025-05-08 12:25:00,239 - hr_server - INFO - Twilio client initialized
+2025-05-08 12:25:00,240 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 12:25:00,241 - hr_server - INFO - TinyDB initialized
+2025-05-08 12:25:00,241 - hr_server - INFO - Starting HR Server application
+2025-05-08 12:25:00,242 - hr_server - ERROR - Error in main: name 'candidate_info' is not defined
+2025-05-08 12:25:00,243 - hr_server - DEBUG - Full traceback: Traceback (most recent call last):
+  File "D:\DeepAI Logics\sts-twilio\server.py", line 686, in main
+    skills=json.dumps(candidate_info.get("skills", [])),
+                      ^^^^^^^^^^^^^^
+NameError: name 'candidate_info' is not defined
+
+2025-05-08 12:25:13,513 - hr_server - INFO - Environment variables loaded
+2025-05-08 12:25:13,561 - hr_server - INFO - Twilio client initialized
+2025-05-08 12:25:13,561 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 12:25:13,562 - hr_server - INFO - TinyDB initialized
+2025-05-08 12:25:13,563 - hr_server - INFO - Starting HR Server application
+2025-05-08 12:25:13,564 - hr_server - INFO - Checking Trieve database for candidate: Catrina Janssen
+2025-05-08 12:25:18,444 - hr_server - ERROR - Error in main: Expecting value: line 1 column 1 (char 0)
+2025-05-08 12:25:18,446 - hr_server - DEBUG - Full traceback: Traceback (most recent call last):
+  File "D:\DeepAI Logics\sts-twilio\server.py", line 678, in main
+    candidate_info = extract_candidate_info(candidate_name)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DeepAI Logics\sts-twilio\server.py", line 668, in extract_candidate_info
+    return json.loads(choices)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayyub\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayyub\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayyub\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+2025-05-08 12:25:54,914 - hr_server - INFO - Environment variables loaded
+2025-05-08 12:25:54,965 - hr_server - INFO - Twilio client initialized
+2025-05-08 12:25:54,966 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 12:25:54,967 - hr_server - INFO - TinyDB initialized
+2025-05-08 12:25:54,968 - hr_server - INFO - Starting HR Server application
+2025-05-08 12:25:54,968 - hr_server - ERROR - Error in main: 'skills'
+2025-05-08 12:25:54,969 - hr_server - DEBUG - Full traceback: Traceback (most recent call last):
+  File "D:\DeepAI Logics\sts-twilio\server.py", line 682, in main
+    formatted_prompt = PROMPT_TEMPLATE.format(
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'skills'
+
+2025-05-08 12:26:13,548 - hr_server - INFO - Environment variables loaded
+2025-05-08 12:26:13,605 - hr_server - INFO - Twilio client initialized
+2025-05-08 12:26:13,606 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 12:26:13,607 - hr_server - INFO - TinyDB initialized
+2025-05-08 12:26:13,608 - hr_server - INFO - Starting HR Server application
+2025-05-08 12:26:13,608 - hr_server - ERROR - Error in main: 'skills'
+2025-05-08 12:26:13,610 - hr_server - DEBUG - Full traceback: Traceback (most recent call last):
+  File "D:\DeepAI Logics\sts-twilio\server.py", line 682, in main
+    formatted_prompt = PROMPT_TEMPLATE.format(
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'skills'
+
+2025-05-08 12:26:31,589 - hr_server - INFO - Environment variables loaded
+2025-05-08 12:26:31,637 - hr_server - INFO - Twilio client initialized
+2025-05-08 12:26:31,638 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 12:26:31,639 - hr_server - INFO - TinyDB initialized
+2025-05-08 12:26:31,640 - hr_server - INFO - Starting HR Server application
+2025-05-08 12:26:31,640 - hr_server - INFO - Making outbound call to +923136125986 from +13412183420
+2025-05-08 12:26:32,397 - hr_server - INFO - Call created successfully with SID: CA0f0815da9994e12788c9734fcd5474ab
+2025-05-08 12:26:32,398 - hr_server - INFO - Call SID: CA0f0815da9994e12788c9734fcd5474ab
+2025-05-08 12:26:32,460 - hr_server - INFO - Server starting on ws://localhost:5000
+2025-05-08 14:03:41,316 - hr_server - INFO - Environment variables loaded
+2025-05-08 14:03:41,387 - hr_server - INFO - Twilio client initialized
+2025-05-08 14:03:41,387 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 14:03:41,391 - hr_server - INFO - TinyDB initialized
+2025-05-08 14:03:41,392 - hr_server - INFO - Starting HR Server application
+2025-05-08 14:03:41,392 - hr_server - INFO - Checking Trieve database for candidate: Catrina Janssen
+2025-05-08 14:03:45,024 - hr_server - ERROR - Error in main: Expecting value: line 1 column 1 (char 0)
+2025-05-08 14:03:45,054 - hr_server - DEBUG - Full traceback: Traceback (most recent call last):
+  File "D:\DeepAI Logics\sts-twilio\server.py", line 678, in main
+    candidate_info = extract_candidate_info(candidate_name)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DeepAI Logics\sts-twilio\server.py", line 668, in extract_candidate_info
+    return json.loads(choices)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayyub\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayyub\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayyub\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+2025-05-08 14:04:01,521 - hr_server - INFO - Environment variables loaded
+2025-05-08 14:04:01,585 - hr_server - INFO - Twilio client initialized
+2025-05-08 14:04:01,586 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 14:04:01,587 - hr_server - INFO - TinyDB initialized
+2025-05-08 14:04:01,589 - hr_server - INFO - Starting HR Server application
+2025-05-08 14:04:01,654 - hr_server - INFO - Server starting on ws://localhost:5000
+2025-05-08 14:13:46,197 - hr_server - INFO - Environment variables loaded
+2025-05-08 14:13:46,253 - hr_server - INFO - Twilio client initialized
+2025-05-08 14:13:46,254 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 14:13:46,256 - hr_server - INFO - TinyDB initialized
+2025-05-08 14:13:46,257 - hr_server - INFO - Starting HR Server application
+2025-05-08 14:13:46,285 - hr_server - INFO - Server starting on ws://localhost:5000
+2025-05-08 14:20:05,938 - hr_server - INFO - Environment variables loaded
+2025-05-08 14:20:06,003 - hr_server - INFO - Twilio client initialized
+2025-05-08 14:20:06,004 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 14:20:06,005 - hr_server - INFO - TinyDB initialized
+2025-05-08 14:20:26,511 - hr_server - INFO - Environment variables loaded
+2025-05-08 14:20:26,569 - hr_server - INFO - Twilio client initialized
+2025-05-08 14:20:26,569 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 14:20:26,570 - hr_server - INFO - TinyDB initialized
+2025-05-08 15:49:57,243 - hr_server - INFO - Environment variables loaded
+2025-05-08 15:49:57,318 - hr_server - INFO - Twilio client initialized
+2025-05-08 15:49:57,319 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 15:49:57,320 - hr_server - INFO - TinyDB initialized
+2025-05-08 15:49:57,321 - hr_server - INFO - Starting HR Server application
+2025-05-08 15:49:57,321 - hr_server - INFO - Checking Trieve database for candidate: Benjamin shah
+2025-05-08 15:50:05,577 - hr_server - INFO - Extracted candidate info: {
+  "skills": [
+    "Mechanical Engineering",
+    "Mechatronics Engineering",
+    "Project Management",
+    "Problem Solving",
+    "Cross-Functional Collaboration",
+    "Process Optimization"
+  ],
+  "projects": [
+    "Innovation for Tomorrow",
+    "Technological Advancements within the current Mechatronics Industry",
+    "Automation Project at Salford & Co Manufacturing"
+  ],
+  "technologies": [
+    "Mechatronics System Integration",
+    "CAD for Mechatronics",
+    "Cutting-edge automation technologies"
+  ],
+  "duration": "May 2014 - Jan 2021"
+}
+2025-05-08 15:50:05,623 - hr_server - INFO - Server starting on ws://localhost:5000
+2025-05-08 16:23:24,875 - hr_server - INFO - Environment variables loaded
+2025-05-08 16:23:24,956 - hr_server - INFO - Twilio client initialized
+2025-05-08 16:23:24,958 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 16:23:24,959 - hr_server - INFO - TinyDB initialized
+2025-05-08 16:23:24,960 - hr_server - INFO - Starting HR Server application
+2025-05-08 16:23:24,960 - hr_server - INFO - Making outbound call to +923136125986 from +13412183420
+2025-05-08 16:23:25,777 - hr_server - INFO - Call created successfully with SID: CA9e350f27aac682f680e438b23a8aad97
+2025-05-08 16:23:25,778 - hr_server - INFO - Call SID: CA9e350f27aac682f680e438b23a8aad97
+2025-05-08 16:23:25,820 - hr_server - INFO - Server starting on ws://localhost:5000
+2025-05-08 19:59:28,997 - hr_server - INFO - Environment variables loaded
+2025-05-08 19:59:29,048 - hr_server - INFO - Twilio client initialized
+2025-05-08 19:59:29,050 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 19:59:29,050 - hr_server - INFO - TinyDB initialized
+2025-05-08 19:59:53,788 - hr_server - INFO - Environment variables loaded
+2025-05-08 19:59:53,849 - hr_server - INFO - Twilio client initialized
+2025-05-08 19:59:53,851 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 19:59:53,851 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:00:05,579 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:00:05,638 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:00:05,638 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:00:05,639 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:03:27,560 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:03:27,610 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:03:27,610 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:03:27,618 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:03:31,343 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:03:31,392 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:03:31,392 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:03:31,392 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:03:42,230 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:03:42,276 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:03:42,278 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:03:42,278 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:03:45,629 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:03:45,673 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:03:45,673 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:03:45,673 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:03:51,856 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:03:51,918 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:03:51,918 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:03:51,918 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:04:00,960 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:04:01,141 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:04:01,144 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:04:01,144 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:04:04,729 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:04:04,786 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:04:04,786 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:04:04,786 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:04:10,558 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:04:10,612 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:04:10,613 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:04:10,613 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:04:17,295 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:04:17,350 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:04:17,350 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:04:17,352 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:04:20,948 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:04:21,002 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:04:21,002 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:04:21,002 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:04:24,974 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:04:25,045 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:04:25,049 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:04:25,054 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:04:34,673 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:04:34,731 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:04:34,731 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:04:34,731 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:04:40,905 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:04:41,010 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:04:41,010 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:04:41,010 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:04:50,429 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:04:50,486 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:04:50,486 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:04:50,486 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:04:54,171 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:04:54,220 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:04:54,220 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:04:54,220 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:05:05,898 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:05:05,947 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:05:05,947 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:05:05,947 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:05:21,507 - hr_server - INFO - Checking Trieve database for candidate: benjamin shah
+2025-05-08 20:05:28,410 - hr_server - INFO - Extracted candidate info: {
+  "skills": [
+    "Mechanical and Mechatronics Engineering",
+    "Project Management",
+    "Problem-solving",
+    "Cross-functional Collaboration",
+    "Mechatronics System Integration",
+    "Automotive Engineering Technology"
+  ],
+  "projects": [
+    "Innovation for Tomorrow",
+    "Automation Project at salford & Co Manufacturing"
+  ],
+  "technologies": [
+    "CAD for Mechatronics"
+  ],
+  "duration": [
+    "May 2014 - May 2016",
+    "Aug 2016 - Oct 2019",
+    "Mar 2020 - Jan 2021"
+  ]
+}
+2025-05-08 20:05:28,410 - hr_server - INFO - Making outbound call to +923136125986 from +13412183420
+2025-05-08 20:05:29,281 - hr_server - INFO - Call created successfully with SID: CAe8587bb46c74eb8c02eb4cc220633fbb
+2025-05-08 20:05:29,281 - hr_server - INFO - Call SID: CAe8587bb46c74eb8c02eb4cc220633fbb
+2025-05-08 20:05:29,281 - hr_server - ERROR - Error in main: There is no current event loop in thread 'AnyIO worker thread'.
+2025-05-08 20:05:29,287 - hr_server - DEBUG - Full traceback: Traceback (most recent call last):
+  File "D:\DeepAI Logics\sts-twilio\server.py", line 752, in making_call_via_twillio
+    server = websockets.serve(router, "localhost", 5000)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\DeepAI Logics\sts-twilio\.venv\Lib\site-packages\websockets\legacy\server.py", line 1032, in __init__
+    loop = asyncio.get_event_loop()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ayyub\AppData\Local\Programs\Python\Python311\Lib\asyncio\events.py", line 677, in get_event_loop
+    raise RuntimeError('There is no current event loop in thread %r.'
+RuntimeError: There is no current event loop in thread 'AnyIO worker thread'.
+
+2025-05-08 20:06:44,327 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:06:44,380 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:06:44,380 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:06:44,380 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:06:44,388 - hr_server - INFO - WebSocket server started on ws://localhost:5000
+2025-05-08 20:06:51,472 - hr_server - INFO - WebSocket server closed
+2025-05-08 20:08:09,629 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:08:09,683 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:08:09,683 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:08:09,683 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:08:09,691 - hr_server - INFO - WebSocket server started on ws://localhost:5000
+2025-05-08 20:08:19,507 - hr_server - INFO - Checking Trieve database for candidate: benjamin shah
+2025-05-08 20:08:27,682 - hr_server - INFO - Extracted candidate info: {
+  "skills": [
+    "Mechanical and Mechatronics Engineering",
+    "Project Management",
+    "Problem-solving",
+    "Cross-functional collaboration",
+    "Cutting-edge Technology Utilization"
+  ],
+  "projects": [],
+  "technologies": [
+    "Mechatronics System Integration",
+    "CAD for Mechatronics"
+  ],
+  "duration": [
+    "Diploma in Mechanical Engineering: May 2014 to May 2016",
+    "Bachelor of Mechatronics Engineering: Aug 2016 to Oct 2019",
+    "Position as Junior Project Engineer at Salford & Co Manufacturing: Mar 2020 to Jan 2021"
+  ]
+}
+2025-05-08 20:08:27,682 - hr_server - INFO - Prompt template formatted successfully
+2025-05-08 20:08:27,690 - hr_server - INFO - Making outbound call to +923136125986 from +13412183420
+2025-05-08 20:08:28,936 - hr_server - INFO - Call created successfully with SID: CAd662f8eb1d7d16c1573c40f45786b733
+2025-05-08 20:08:28,938 - hr_server - INFO - Call SID: CAd662f8eb1d7d16c1573c40f45786b733
+2025-05-08 20:10:54,177 - hr_server - INFO - WebSocket server closed
+2025-05-08 20:19:55,416 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:19:55,463 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:19:55,463 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:19:55,463 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:20:13,540 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:20:13,582 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:20:13,582 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:20:13,590 - hr_server - INFO - TinyDB initialized
+2025-05-08 20:20:18,230 - hr_server - INFO - Checking Trieve database for candidate: benjamin shah
+2025-05-08 20:20:24,477 - hr_server - INFO - Extracted candidate info: {
+  "skills": [
+    "Mechanical and Mechatronics Engineering",
+    "Project Management",
+    "Problem-solving",
+    "Cross-functional collaboration"
+  ],
+  "projects": [
+    "Innovation for Tomorrow community outreach program"
+  ],
+  "technologies": [
+    "CAD for Mechatronics",
+    "Robotics and Automation",
+    "Automotive Engineering Technology"
+  ],
+  "duration": [
+    "May 2014 - May 2016",
+    "Aug 2016 - Oct 2019"
+  ]
+}
+2025-05-08 20:20:24,485 - hr_server - INFO - Making outbound call to +923136125986 from +13412183420
+2025-05-08 20:20:25,610 - hr_server - INFO - Call created successfully with SID: CA99ef08c0cd6253e32c04742678e526ec
+2025-05-08 20:20:25,610 - hr_server - INFO - Call SID: CA99ef08c0cd6253e32c04742678e526ec
+2025-05-08 20:20:25,611 - hr_server - ERROR - Failed to setup VoiceAgent: cannot access local variable 'PROMPT_TEMPLATE' where it is not associated with a value
+2025-05-08 20:22:22,501 - hr_server - INFO - Environment variables loaded
+2025-05-08 20:22:22,546 - hr_server - INFO - Twilio client initialized
+2025-05-08 20:22:22,546 - hr_server - INFO - Trieve API configuration loaded
+2025-05-08 20:22:22,547 - hr_server - INFO - TinyDB initialized

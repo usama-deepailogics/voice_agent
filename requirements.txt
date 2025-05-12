@@ -8,4 +8,9 @@ twilio==8.12.0
 python-dotenv==1.0.0
 tinydb==4.8.0
 python-dateutil==2.8.2
-
+# langchain-community
+# PyMuPDF
+trieve_py_client
+google-cloud-storage
+pydantic>=2.0.0
+pymupdf4llm
