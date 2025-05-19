@@ -14,4 +14,4 @@ trieve_py_client
 google-cloud-storage
 pydantic>=2.0.0
 pymupdf4llm
-firebase-admin  
+firebase-admin
