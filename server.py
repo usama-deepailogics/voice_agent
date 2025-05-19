@@ -41,7 +41,8 @@ def setup_logging():
     file_handler = logging.handlers.RotatingFileHandler(
         'logs/hr_server.log',
         maxBytes=10485760,  # 10MB
-        backupCount=5
+        backupCount=5,
+        encoding='utf-8'
     )
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(file_formatter)
@@ -221,7 +222,7 @@ def sts_connect():
 # Update the PROMPT_TEMPLATE with current date/time and resume data
 current_date = datetime.now().strftime("%Y-%m-%d")
 current_time = datetime.now().strftime("%H:%M:%S")
-candidate_name = "Benjamin shah"
+candidate_name = "abubakr"
 
 PROMPT_TEMPLATE = """You are Alex, a friendly and professional HR virtual assistant conducting initial screening interviews. Your role is to gather candidate information and assess their qualifications.
 
@@ -405,7 +406,7 @@ config_message = {
                     "provider": {
                         "type": "open_ai",
                     },
-                    "model": "gpt-4.1-mini",
+                    "model": "gpt-4o-mini",
                     "instructions": PROMPT_TEMPLATE,
                     "functions": FUNCTION_DEFINITIONS,
                 },
@@ -610,7 +611,7 @@ def make_outbound_call(to_number, from_number):
     <Response>
         <Say language="en">"This call may be monitored or recorded."</Say>
         <Connect>
-            <Stream url="wss://d024-101-53-238-243.ngrok-free.app/twilio" />
+            <Stream url="wss://d469-154-208-44-22.ngrok-free.app/twilio" />
         </Connect>
     </Response>'''
     
@@ -644,13 +645,14 @@ def extract_candidate_info(candidate_name):
     }
     response = requests.request("POST", url, json=payload, headers=headers)
     raw_resume_data = response.text
+    logger.info(f"raw resume data {raw_resume_data}")
     
     # Process the raw resume data
     prompt = f"""
     Extract skills, technologies, project names, and durations from this transcript only about the {candidate_name}:
     "{raw_resume_data}"
     
-    Respond in JSON:
+    Respond in JSON without any prefix or suffix:
     {{
         "skills": [],
         "projects": [],
@@ -660,10 +662,12 @@ def extract_candidate_info(candidate_name):
     """
 
     response = AI_client.chat.completions.create(
-        model="gpt-4.1-mini",
+        model="gpt-4o-mini",
         messages=[{"role": "user", "content": prompt}],
     )
     choices = response.choices[0].message.content
+    logger.info(f"formatted data {json.loads(choices)}")
+
     return json.loads(choices)
 
 # Modify the main function
