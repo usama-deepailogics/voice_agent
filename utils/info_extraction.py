@@ -95,10 +95,10 @@ def storing_data(data, user_id, user_doc_id):
     except Exception as e:
         return {"status": "failed", "message": f"error occured while saving end status in firebase: {e}"}
 
-def storing_conversation(data, user_id, user_doc_id):
+def storing_conversation(data, user_id, user_doc_id,status='Completed'): #status as variable
     logger.info(f"storing conversation for user id {user_id}")
     try:
-        payload = {"call_status":"completed","completedAt": firestore.SERVER_TIMESTAMP,"conversation":data}
+        payload = {"call_status":"completed","completedAt": firestore.SERVER_TIMESTAMP,"conversation":data, "status":status}
         doc_id = user_doc_id
         db = authenticate_firebase()
         db.collection("responses").document(user_id).collection("conversation").document(doc_id).set(payload,merge=True)
@@ -106,3 +106,37 @@ def storing_conversation(data, user_id, user_doc_id):
     except Exception as e:
         return {"status": "failed", "message": f"error occured while saving end status in firebase: {e}"}
 
+
+def extracting_candidate_info(text:CandidatePayload)->Dict:
+    try:
+        user_id = text.user_id
+        doc_id = text.doc_id
+        db =authenticate_firebase()
+        parent_doc_ref = db.collection("responses").document(user_id)
+        subcollection_ref = parent_doc_ref.collection("conversation").document(doc_id)
+        subcollection_ref =subcollection_ref.get()
+        doc_ref=  subcollection_ref.to_dict()
+        conversation = doc_ref["conversation"]
+        logger.info(f"extracted conversation : {conversation}")
+        conversation = {"conversation": conversation}
+        prompt  = load_config_file("tools/Conversation.yaml")
+        system_message = prompt["prompt"]["system_message"]
+        user_message =  prompt["prompt"]["user_message"]
+        user_message = user_message.format(**conversation)
+        # print("tis/is",user_message)
+        logger.info(f"System message: {system_message}")
+        logger.info(f"User message: {user_message}")
+        
+        response = openai_client.chat.completions.create(
+            model = "gpt-4o-mini",
+            messages= [
+                {"role":"system","content":system_message},
+                {"role":"user", "content":user_message}
+            ],
+            temperature = 0.2,
+
+        )
+        logger.info(f"raw response {response.choices[0].message.content}")
+        return response.choices[0].message.content
+    except Exception as e:
+        return {"message": str(e)}

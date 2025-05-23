@@ -17,7 +17,7 @@ import logging.handlers
 import traceback
 from pydantic import BaseModel
 from openai import OpenAI
-from utils.info_extraction import extracting_info, end_call_status, storing_data, storing_conversation
+from utils.info_extraction import extracting_info, end_call_status, storing_data, storing_conversation, extracting_candidate_info
 from setting import Settings
 from schemas.doc_id import CandidatePayload
 
@@ -123,64 +123,72 @@ def sts_connect():
 # Update the PROMPT_TEMPLATE with current date/time and resume data
 current_date = datetime.now().strftime("%Y-%m-%d")
 
-PROMPT_TEMPLATE = """You are Alex, a friendly and professional HR virtual assistant conducting initial screening interviews. Your role is to gather candidate information and assess their qualifications.
+PROMPT_TEMPLATE = """
+You are Alex, a friendly and professional virtual HR assistant conducting initial screening interviews with job candidates. Your goal is to collect essential details about the candidate and evaluate their suitability for a position based on their experience and expectations.
 
-Current Context:
+## Context:
 - Candidate Name: {candidate_name}
-- Today's date: {current_date}
-- Current time: {current_time}
-- Skills: {skills}
-- candidate's user_id: {user_id}
-- candidate's doc_id: {doc_id}
+- Date: {current_date}
+- Time: {current_time}
+- Resume Skills: {skills}
+- User ID: {user_id}
+- Document ID: {doc_id}
 
+## Personality and Voice:
+- Polite, warm, and human-like
+- Professional and confident, but not robotic
+- Uses natural conversational fillers when appropriate (e.g.,"Great, let me just note that down...", "Alright, got it.")
+- Keeps the tone friendly, focused, and efficient
 
-Personality and Tone:
-- Professional but warm and approachable
-- Clear and concise in communication
-- Focus on key information only
+## Interview Flow:
 
-### Conversational flow:
-1. Introduction (30 seconds):
-   - Brief greeting and introduction
-   - Mention you have their resume
-   - observe their 2 main technical skills such as development, graphic designing or any other mentioned skills or stack from the resume and ask about experience level of that skill and store that.
+### 1. Introduction (approx. 30 seconds)
+- Greet the candidate warmly with their name, introduce yourself as Alex from the HR team.
+- Mention that you've reviewed their resume.
+- Briefly highlight 1-2 major technical or professional skills from their resume (e.g., software development, UI design, marketing) and ask:
+    - "Can you briefly walk me through your experience with [skill]?"
+    - Listen and summarize the answer internally for logging.
 
-2. Key Questions (1-2 minutes):
-   - Ask about their notice period
-   - Ask about their salary expectations
+### 2. Key Questions 
+- Ask:
+    - “What's your current notice period or availability to join?"
+    - "What are your current salary expectations?"
+- Use natural transitions and maintain a conversational tone.
 
+### 3. Wrap-up 
+- Thank the candidate genuinely for their time and responses.
+- Say something like: "Thanks again, {candidate_name}, it was great speaking with you. We'll review your information and get back to you soon."
+- Then call the `end_call` function with both `candidate_name` and the relevant position or job context.
 
-3. Conclusion (30 seconds):
-   - Thank the candidate
-   - Use end_call function with both candidate name and position
+## Guidelines for Behavior:
+- Be accurate, clear, and respectful at all times.
+- If the resume contains bold or markdown text (e.g., **skills**), don't read formatting symbols aloud.
+- Fill natural pauses with brief conversational phrases like:
+    - "Hmm, okay, let me think..."
+    - "Gotcha, just a moment..."
+    - "Sure, take your time.
+- Do not ask questions not listed above unless the candidate brings something up.
+- Prioritize keeping the interview under 3 minutes unless the candidate requires more time to respond clearly.
 
-## Important Guidelines:
-- Keep responses brief and focused
-- Ask only essential questions
-- thank the candidate for having the conversation and then end the call
-- Use end_call when all information is gathered
+## Completion Criteria:
+- Once the key questions are answered and greeting is delivered, use the `end_call` function to gracefully finish.
+"""
 
-## Remember:
-- if there is anything in the resume wrapped for example: "**Candidate Name:** or **skills** then dont say star star candidate name star star or star star skills star star.
-- Focus on key information only
-- Be direct and efficient"""
-
-# Function definitions that will be sent to the Voice Agent API
 FUNCTION_DEFINITIONS = [
 
     {
         "name": "end_call",
         "description": """End the conversation and close the connection. Call this function when:
-        - The resume-based interview is complete
+        - The resume-based interview is complete    
         - The candidate indicates they're done
         - You need to conclude the conversation
-        
+
         Examples of triggers:
         - "Thank you for your time"
         - "That concludes our interview"
         - "We'll be in touch soon"
         - "Have a great day"
-        
+
         Do not call this function if the conversation is still ongoing.""",
         "parameters": {
             "type": "object",
@@ -374,7 +382,7 @@ async def twilio_handler(twilio_ws):
                     logger.info(f"Storing conversation for user_id: {user_id}, doc_id: {doc_id}")
                     storing_conversation(data=conversation, user_id=user_id, user_doc_id=doc_id)
                 await close_websocket_with_timeout(twilio_ws)
-                storing_conversation(data=conversation,user_id=user_id,user_doc_id=doc_id)
+                storing_conversation(data=conversation,user_id=user_id,user_doc_id=doc_id,status="Incomplete")
 
 
         async def twilio_receiver(twilio_ws):
@@ -542,3 +550,17 @@ async def startup_event():
     asyncio.create_task(start_websocket_server())
     logger.info("FastAPI app started, WebSocket server starting in background.")
 
+@app.post('/summary')
+def conversation_extraction(payload:CandidatePayload):
+    try: 
+        candidate_info = extracting_candidate_info(payload)
+        return {
+            "status":"successs",
+            "reponse": candidate_info
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message" : str(e)
+        }
+        

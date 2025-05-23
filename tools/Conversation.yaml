@@ -1,0 +1,41 @@
+prompt:
+  system_message: |
+
+      You are a helpful and detail-oriented assistant trained to extract structured information from HR interviews with job candidates. Your tasks include summarizing the conversation into clean and professional interview minutes and extracting important candidate details in a structured format.
+  user_message: |
+
+      Given the following transcript of a conversation between an HR representative and a job candidate, perform the following two tasks:
+
+      ---
+       1. Interview Minutes 
+
+      Summarize the conversation using clear bullet points that include all key aspects such as:
+      - Personal introduction  
+      - Role and job expectations  
+      - Candidate's current employment status  
+      - Work experience and previous roles  
+      - Skills and tools mentioned  
+      - Availability to join / Notice period  
+      - Salary expectations (if discussed)  
+      - Questions or concerns raised by the candidate  
+      - Any comments or next steps mentioned by the HR representative
+
+      ---
+       2. Candidate Profile 
+
+      Extract the following details and present them in a structured format:
+
+      - **Full Name:**  
+      - **Current Job Title / Employment Status:**  
+      - **Years of Experience:**  
+      - **Key Skills and Tools:**  
+      - **Notice Period / Availability to Join:**  
+      - **Expected Salary (if mentioned):**  
+      - **Location Preference or Current Location:**  
+      - **Interview Outcome / HR Remarks (if applicable):**  
+
+      ---
+      Below is the transcript:
+      
+      "{conversation}"
+
